@@ -32,8 +32,10 @@
 
 import java.io.*;
 import java.net.*;
+import java.util.Random;
 
-public class IMClient {
+public class IMClient{
+    
     public static void main(String[] args) throws IOException {
     
         // CSC 450 LAB 6: ARGS LENGTH WILL BE 3 NOW, SINCE WE NEED AN EXTRA ARGS ELEMENT TO
