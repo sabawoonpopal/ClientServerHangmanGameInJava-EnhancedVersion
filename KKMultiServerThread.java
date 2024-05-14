@@ -34,7 +34,9 @@ import java.io.*;
 import java.lang.ClassNotFoundException;
 public class KKMultiServerThread extends Thread {
     private Socket socket = null;
+    //private String clientName;
 
+    
     public KKMultiServerThread(Socket socket) {
         super("KKMultiServerThread");
         this.socket = socket;
@@ -57,11 +59,12 @@ public class KKMultiServerThread extends Thread {
             out.writeObject(sendToClient);
             
             Message fromClient;
-
+            
             while ((fromClient = (Message)in.readObject()) != null) {
                 System.out.println(fromClient.getName() + ": " + fromClient.getCharContent());
                 outputLine = kkp.processInput(fromClient);
                 Message serversReply = new Message("Server: ", outputLine);
+                
                 out.writeObject(serversReply);
                 System.out.println("Server: " + outputLine);
                 if (outputLine.equals("Bye"))
