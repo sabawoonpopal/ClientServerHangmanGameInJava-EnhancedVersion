@@ -33,6 +33,7 @@
 import java.net.*;
 import java.io.*;
 import java.util.Random;
+
 public class IMProtocol {
     private static final int WAITING = 0;
     private static final int IN_GAME = 1;
@@ -55,7 +56,7 @@ public class IMProtocol {
     private int chosenWord;//random.nextInt(5);
     
     // CSC450 LAB3: NO LONGER NEED KNOCK KNOCK JOKES FOR THIS ASSIGNMENT. (IM (Instant Messaging Lab))
-    private String[] words = { "Turnip"};//, "Little", "Atch", "Who", "BOO!"};
+    private String[] words = { "turnip", "little", "ligament", "please", "tractor"};
     //private String[] answers = { "Turnip the heat, it's cold in here!",
                                  //"I didn't know you could yodel!",
                                  //"Bless you!",
@@ -66,6 +67,9 @@ public class IMProtocol {
     private char[] splittedWord;  
     private char[] guessedWord;
     private int amountOfLetters;
+    private int wins = 0;
+   
+    
     // TENTH STEP: DOCUMENTING THE PROCESSINPUT METHOD.
     /**
      * processInput - Processes the input that the user gives.
@@ -90,7 +94,7 @@ public class IMProtocol {
             attemptsLeft = 6;
             letterFound = ' ';
             random = new Random();
-            chosenWord = 0;
+            chosenWord = random.nextInt(5);;
             splittedWord = words[chosenWord].toCharArray();   
             guessedWord = new char[splittedWord.length];
             amountOfLetters = guessedWord.length;
@@ -103,7 +107,7 @@ public class IMProtocol {
                 try
                 {
                     char guessedLetter = theInput.getCharContent();
-                    System.out.println("HAHA " + guessedLetter);
+                    
                     boolean found = false;
                     for(int i = 0; i < splittedWord.length; i++)
                     {
@@ -139,15 +143,21 @@ public class IMProtocol {
                         
                         if(count == amountOfLetters)
                         {
-                            theOutput = "CONGRAULATIONS! YOU WIN THE GAME! Would you like to play again?";
-                            
+                            wins++;
+                            theOutput = "CONGRAULATIONS! YOU WIN THE GAME! You now have " + wins + " win(s).\n\n"; 
+                            theOutput += ""; // ADD CODE FOR LEADERBOARD.
+                            theOutput += "Would you like to play again? (y/n)";
                             state = REQUEST_NEW_GAME;
                         }
                     }
                     if(!found)
                     {
-                        theOutput = "I'm sorry, " + guessedLetter + " is not in the word.";
                         attemptsLeft--;
+                        theOutput = "I'm sorry, " + guessedLetter + " is not in the word.\nYou have " + attemptsLeft + " attempt(s) left.\n";
+                        if(attemptsLeft == 0)
+                        {
+                            theOutput += "You ran out of guesses. Press any key to finalize the round..";
+                        }
                     }
                 }
                 catch(IllegalArgumentException e)
@@ -155,77 +165,21 @@ public class IMProtocol {
                     theOutput = "You entered more than one character, or an illegal character. Please try again.";
                 }
                 
-                // Make the status back to WAITING so protocol knows its not in conversation.
-                
-                // try
-                // {
-                    // theOutput = stdIn.readLine();
-                // }
-                // catch (IOException ioe)
-                // {
-                    // ioe.printStackTrace();
-                // }//"How are you?";
-              
-                    //} else {
-                        //theOutput = //"You're supposed to say \"Who's there?\"! " +
-                        //Try again. Knock! Knock!";
-                    //}
-                // } else if (state == SENTCLUE) {
-                    // if (theInput.equalsIgnoreCase(clues[currentJoke] + " who?")) {
-                        // theOutput = answers[currentJoke] + " Want another? (y/n)";
-                        // state = ANOTHER;
-                    // } else {
-                        // theOutput = "You're supposed to say \"" + 
-                        // clues[currentJoke] + 
-                        // " who?\"" + 
-                        // "! Try again. Knock! Knock!";
-                        // state = IN_CONVERSATION;
-                    // }
-                // } else if (state == ANOTHER) {
-                    // if (theInput.equalsIgnoreCase("y")) {
-                        // theOutput = "Knock! Knock!";
-                        // if (currentJoke == (NUMJOKES - 1))
-                            // currentJoke = 0;
-                        // else
-                            // currentJoke++;
-                        // state = IN_CONVERSATION;
-                    // } else {
-                        // theOutput = "Bye.";
-                        // state = WAITING;
-                    // }
-                // }
             }
             else
             {
-                theOutput = "Game over. You lose. Would you like to play again?";
+                theOutput = "Game over. You lose.\n";
+                theOutput += "The word was " + words[chosenWord] + "\n";
+                theOutput += "Would you like to play again?";
                 state = REQUEST_NEW_GAME;
                 //state = REQUEST_NEW_GAME;
             }
-            // else if (state == IN_GAME)
-            // {
-                // // Set space to show that its the servers turn to send message.
-                // // System.out.print("Server: ");
-                // try
-                // {
-                    // // Allow to send messages manually on server side, thanks to BufferedReader object.
-                    // theOutput = stdIn.readLine();
-                // }
-                // catch (IOException ioe)
-                // {
-                    // ioe.printStackTrace();
-                // }//"How are you?";
-            // }
         }
         else if (state == REQUEST_NEW_GAME)
         {
             if(theInput.getCharContent() == 'y')
             {
-                // chosenWord = random.nextInt(5);
-                // splittedWord = words[chosenWord].toCharArray();
-                // guessedWord = new char[splittedWord.length];
-                // attemptsLeft = 6;
-                // amountOfLetters = guessedWord.length;
-                theOutput = "Another game has started! Good luck!";
+                theOutput = "Selecting another word to be guessed... press any key to continue...";
                 
                 state = WAITING;
             }
@@ -249,4 +203,5 @@ public class IMProtocol {
         // Reurn the string representing the sent message.
         return theOutput;
     }
+    
 }
