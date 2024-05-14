@@ -45,7 +45,6 @@ public class Message implements Serializable
         splittedWord = theSplittedWord;
     }
     
-    
     public String getName()
     {
         return name;
