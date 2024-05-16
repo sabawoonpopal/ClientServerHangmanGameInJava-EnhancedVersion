@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Message
+comment0.text=\n\ Write\ a\ description\ of\ class\ Message\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=inputtedName\ inputtedResponse
+comment1.target=Message(java.lang.String,\ char)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Message\n
+comment10.params=
+comment10.target=char[]\ getSplittedWord()
+comment11.params=newSplittedWord
+comment11.target=void\ setSplittedWord(char[])
+comment2.params=inputtedName\ inputtedResponse
+comment2.target=Message(java.lang.String,\ java.lang.String)
+comment3.params=inputtedName\ inputtedResponse\ theSplittedWord
+comment3.target=Message(java.lang.String,\ java.lang.String,\ char[])
+comment4.params=inputtedName\ inputtedResponse\ theSplittedWord
+comment4.target=Message(java.lang.String,\ char,\ char[])
+comment5.params=
+comment5.target=java.lang.String\ getName()
+comment6.params=newName
+comment6.target=void\ setName(java.lang.String)
+comment7.params=
+comment7.target=char\ getCharContent()
+comment8.params=
+comment8.target=java.lang.String\ getMessageContent()
+comment9.params=inputtedMessage
+comment9.target=void\ setMessage(char)
+numComments=12
